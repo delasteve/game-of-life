@@ -9,13 +9,18 @@ namespace GameOfLife
         {
             var aliveNeighbors = neighbors.Count(neighbor => neighbor == Cell.ALIVE);
 
-            if (cell == Cell.ALIVE && aliveNeighbors == 2) {
-                return Cell.ALIVE;
-            } else if (cell == Cell.ALIVE && aliveNeighbors == 3) {
+            if (IsAliveCellAndShouldStayAlive(cell, aliveNeighbors))
+            {
                 return Cell.ALIVE;
             }
 
             return Cell.DEAD;
+        }
+
+        private static bool IsAliveCellAndShouldStayAlive(Cell cell, int aliveNeighbors)
+        {
+            return cell == Cell.ALIVE
+                && (aliveNeighbors == 2 || aliveNeighbors == 3);
         }
     }
 }
