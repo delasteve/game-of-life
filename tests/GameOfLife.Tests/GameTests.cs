@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using GameOfLife;
 using Xunit;
@@ -18,6 +19,30 @@ namespace GameOfLife.Tests
             };
 
             game.Grid.ShouldBeEquivalentTo(expectedGrid);
+        }
+
+        [Fact]
+        public void ToggleState_GivenAZeroBasedXandYCoordinateAndADeadCell_UpdatesCellToBeAlive()
+        {
+            var game = new Game(2, 2);
+
+            game.ToggleState(0, 0);
+
+            game.Grid.ElementAt(0).ElementAt(0).Should().Be(Cell.ALIVE);
+        }
+
+        [Fact]
+        public void ToggleState_GivenAZeroBasedXandYCoordinateAndAnAliveCell_UpdatesCellToBeDead()
+        {
+            var game = new Game(2, 2);
+
+            game.ToggleState(0, 0);
+
+            game.Grid.ElementAt(0).ElementAt(0).Should().Be(Cell.ALIVE);
+
+            game.ToggleState(0, 0);
+
+            game.Grid.ElementAt(0).ElementAt(0).Should().Be(Cell.DEAD);
         }
     }
 }
