@@ -12,7 +12,9 @@ namespace GameOfLife
             if (IsAliveCellAndShouldStayAlive(cell, aliveNeighbors))
             {
                 return Cell.ALIVE;
-            } else if (cell == Cell.DEAD && aliveNeighbors == 3) {
+            }
+            else if (IsDeadCellAndShouldComeAlive(cell, aliveNeighbors))
+            {
                 return Cell.ALIVE;
             }
 
@@ -23,6 +25,12 @@ namespace GameOfLife
         {
             return cell == Cell.ALIVE
                 && (aliveNeighbors == 2 || aliveNeighbors == 3);
+        }
+
+        private static bool IsDeadCellAndShouldComeAlive(Cell cell, int aliveNeighbors)
+        {
+            return cell == Cell.DEAD
+                && aliveNeighbors == 3;
         }
     }
 }
