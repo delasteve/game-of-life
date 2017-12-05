@@ -14,5 +14,15 @@ namespace GameOfLife.Tests
 
             result.Should().Be(Cell.DEAD);
         }
+
+        [Fact]
+        public void GetNextCellGeneration_GivenAliveCellWithOneAliveNeighbor_ReturnsDeadCell()
+        {
+            var result = CellRules.GetNextCellGeneration(Cell.ALIVE, new List<Cell> {
+                Cell.ALIVE
+            });
+
+            result.Should().Be(Cell.DEAD);
+        }
     }
 }
