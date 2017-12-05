@@ -17,6 +17,7 @@ namespace GameOfLife.Tests
         [InlineData(Cell.ALIVE, 6, Cell.DEAD)]
         [InlineData(Cell.ALIVE, 7, Cell.DEAD)]
         [InlineData(Cell.ALIVE, 8, Cell.DEAD)]
+        [InlineData(Cell.DEAD, 3, Cell.ALIVE)]
         public void GetNextCellGeneration_GivenCurrentGenerationCellAndAliveNeighbors_ReturnsExpectedNextCellGeneration
             (Cell currentGenerationCell, int aliveNeighborCount, Cell expectedNextGenerationCell)
         {
