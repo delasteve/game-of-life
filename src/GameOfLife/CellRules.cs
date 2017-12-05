@@ -11,6 +11,8 @@ namespace GameOfLife
 
             if (cell == Cell.ALIVE && aliveNeighbors == 2) {
                 return Cell.ALIVE;
+            } else if (cell == Cell.ALIVE && aliveNeighbors == 3) {
+                return Cell.ALIVE;
             }
 
             return Cell.DEAD;

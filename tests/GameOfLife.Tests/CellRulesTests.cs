@@ -35,5 +35,17 @@ namespace GameOfLife.Tests
 
             result.Should().Be(Cell.ALIVE);
         }
+
+        [Fact]
+        public void GetNextCellGeneration_GivenAliveCellWithThreeAliveNeighbors_ReturnsAliveCell()
+        {
+            var result = CellRules.GetNextCellGeneration(Cell.ALIVE, new List<Cell> {
+                Cell.ALIVE,
+                Cell.ALIVE,
+                Cell.ALIVE
+            });
+
+            result.Should().Be(Cell.ALIVE);
+        }
     }
 }
