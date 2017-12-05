@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using GameOfLife;
 using Xunit;
@@ -7,58 +7,22 @@ namespace GameOfLife.Tests
 {
     public class CellRulesTests
     {
-        [Fact]
-        public void GetNextCellGeneration_GivenAliveCellWithZeroAliveNeighbors_ReturnsDeadCell()
+        [Theory]
+        [InlineData(Cell.ALIVE, 0, Cell.DEAD)]
+        [InlineData(Cell.ALIVE, 1, Cell.DEAD)]
+        [InlineData(Cell.ALIVE, 2, Cell.ALIVE)]
+        [InlineData(Cell.ALIVE, 3, Cell.ALIVE)]
+        [InlineData(Cell.ALIVE, 4, Cell.DEAD)]
+        public void GetNextCellGeneration_GivenCurrentGenerationCellAndAliveNeighbors_ReturnsExpectedNextCellGeneration
+            (Cell currentGenerationCell, int aliveNeighborCount, Cell expectedNextGenerationCell)
         {
-            var result = CellRules.GetNextCellGeneration(Cell.ALIVE, new List<Cell>());
+            var aliveNeighbors = Enumerable
+                .Repeat(Cell.ALIVE, aliveNeighborCount)
+                .ToList();
 
-            result.Should().Be(Cell.DEAD);
-        }
+            var result = CellRules.GetNextCellGeneration(currentGenerationCell, aliveNeighbors);
 
-        [Fact]
-        public void GetNextCellGeneration_GivenAliveCellWithOneAliveNeighbor_ReturnsDeadCell()
-        {
-            var result = CellRules.GetNextCellGeneration(Cell.ALIVE, new List<Cell> {
-                Cell.ALIVE
-            });
-
-            result.Should().Be(Cell.DEAD);
-        }
-
-        [Fact]
-        public void GetNextCellGeneration_GivenAliveCellWithTwoAliveNeighbors_ReturnsAliveCell()
-        {
-            var result = CellRules.GetNextCellGeneration(Cell.ALIVE, new List<Cell> {
-                Cell.ALIVE,
-                Cell.ALIVE
-            });
-
-            result.Should().Be(Cell.ALIVE);
-        }
-
-        [Fact]
-        public void GetNextCellGeneration_GivenAliveCellWithThreeAliveNeighbors_ReturnsAliveCell()
-        {
-            var result = CellRules.GetNextCellGeneration(Cell.ALIVE, new List<Cell> {
-                Cell.ALIVE,
-                Cell.ALIVE,
-                Cell.ALIVE
-            });
-
-            result.Should().Be(Cell.ALIVE);
-        }
-
-        [Fact]
-        public void GetNextCellGeneration_GivenAliveCellWithFourAliveNeighbors_ReturnsDeadCell()
-        {
-            var result = CellRules.GetNextCellGeneration(Cell.ALIVE, new List<Cell> {
-                Cell.ALIVE,
-                Cell.ALIVE,
-                Cell.ALIVE,
-                Cell.ALIVE
-            });
-
-            result.Should().Be(Cell.DEAD);
+            result.Should().Be(expectedNextGenerationCell);
         }
     }
 }
