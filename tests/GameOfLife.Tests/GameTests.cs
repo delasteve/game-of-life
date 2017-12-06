@@ -44,5 +44,16 @@ namespace GameOfLife.Tests
 
             game.Grid.ElementAt(0).ElementAt(0).Should().Be(Cell.DEAD);
         }
+
+        [Fact]
+        public void SpawnNextGeneration_GivenAValidGameGrid_ReplacesGridWithCopy()
+        {
+            var game = new Game(2, 2);
+            var oldGrid = game.Grid;
+
+            game.SpawnNextGeneration();
+
+            oldGrid.Should().NotBeSameAs(game.Grid);
+        }
     }
 }

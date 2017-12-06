@@ -30,5 +30,17 @@ namespace GameOfLife
                 _grid[y][x] = Cell.ALIVE;
             }
         }
+
+        public void SpawnNextGeneration()
+        {
+            var clonedGrid = CreateShallowCopyOfGrid();
+
+            _grid = clonedGrid;
+        }
+
+        private List<List<Cell>> CreateShallowCopyOfGrid()
+        {
+            return _grid.Select(y => y.ToList()).ToList();
+        }
     }
 }
