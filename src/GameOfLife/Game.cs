@@ -6,14 +6,12 @@ namespace GameOfLife
 {
     public class Game
     {
-        private readonly int _height;
-        private readonly int _width;
         private List<List<Cell>> _grid;
 
-        public Game(int height, int width)
+        public Game(int width, int height)
         {
-            _height = height;
-            _width = width;
+            Width = width;
+            Height = height;
 
             _grid = Enumerable
                 .Range(0, height)
@@ -24,6 +22,8 @@ namespace GameOfLife
         }
 
         public IEnumerable<IEnumerable<Cell>> Grid { get { return _grid; } }
+        public int Width { get; private set; }
+        public int Height { get; private set; }
 
         public void ToggleState(int x, int y)
         {
@@ -43,9 +43,9 @@ namespace GameOfLife
             var oldGrid = _grid;
             _grid = clonedGrid;
 
-            for (var y = 0; y < _height; y++)
+            for (var y = 0; y < Height; y++)
             {
-                for (var x = 0; x < _width; x++)
+                for (var x = 0; x < Width; x++)
                 {
                     _grid[y][x] = CellRules.GetNextCellGeneration(oldGrid[y][x], GetNeighbors(oldGrid, x, y));
                 }
@@ -59,7 +59,7 @@ namespace GameOfLife
             for (int row = -1; row < 2; row++)
             {
                 var neighborY = y + row;
-                if (neighborY < 0 || neighborY >= _height) { continue; }
+                if (neighborY < 0 || neighborY >= Height) { continue; }
 
                 for (int col = -1; col < 2; col++)
                 {
@@ -67,7 +67,7 @@ namespace GameOfLife
 
                     var neighborX = x + col;
 
-                    if (neighborX < 0 || neighborX >= _width) { continue; }
+                    if (neighborX < 0 || neighborX >= Width) { continue; }
 
                     neighbors.Add(grid[neighborY][neighborX]);
                 }
