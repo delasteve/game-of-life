@@ -89,5 +89,26 @@ namespace GameOfLife.Tests
 
             game.Grid.ShouldBeEquivalentTo(expectedGrid);
         }
+
+        [Fact]
+        public void SpawnNextGeneration_GivenAValidGameGridWithRandomNeighbors_WillUpdateGridFollowingCellRules()
+        {
+            var game = new Game(3, 3);
+
+            var expectedGrid = new List<List<Cell>>
+            {
+                new List<Cell> { Cell.DEAD, Cell.ALIVE, Cell.ALIVE },
+                new List<Cell> { Cell.DEAD, Cell.DEAD, Cell.ALIVE },
+                new List<Cell> { Cell.DEAD, Cell.DEAD, Cell.DEAD }
+            };
+            game.ToggleState(0, 0);
+            game.ToggleState(1, 0);
+            game.ToggleState(2, 0);
+            game.ToggleState(2, 1);
+
+            game.SpawnNextGeneration();
+
+            game.Grid.ShouldBeEquivalentTo(expectedGrid);
+        }
     }
 }

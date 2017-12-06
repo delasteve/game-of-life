@@ -40,19 +40,19 @@ namespace GameOfLife
         public void SpawnNextGeneration()
         {
             var clonedGrid = CreateShallowCopyOfGrid();
-
+            var oldGrid = _grid;
             _grid = clonedGrid;
 
             for (var y = 0; y < _height; y++)
             {
                 for (var x = 0; x < _width; x++)
                 {
-                    _grid[y][x] = CellRules.GetNextCellGeneration(_grid[x][y], GetNeighbors(x, y));
+                    _grid[y][x] = CellRules.GetNextCellGeneration(oldGrid[y][x], GetNeighbors(oldGrid, x, y));
                 }
             }
         }
 
-        private IEnumerable<Cell> GetNeighbors(int x, int y)
+        private IEnumerable<Cell> GetNeighbors(List<List<Cell>> grid, int x, int y)
         {
             var neighbors = new List<Cell>();
 
@@ -68,7 +68,7 @@ namespace GameOfLife
                     if (neighborX < 0 || neighborX >= _width) { continue; }
                     if (neighborY < 0 || neighborY >= _height) { continue; }
 
-                    neighbors.Add(_grid[neighborY][neighborX]);
+                    neighbors.Add(grid[neighborY][neighborX]);
                 }
             }
 
