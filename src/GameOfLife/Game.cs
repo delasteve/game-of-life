@@ -6,10 +6,15 @@ namespace GameOfLife
 {
     public class Game
     {
+        private readonly int _height;
+        private readonly int _width;
         private List<List<Cell>> _grid;
 
         public Game(int height, int width)
         {
+            _height = height;
+            _width = width;
+
             _grid = Enumerable
                 .Range(0, height)
                 .Select(x => Enumerable
@@ -38,9 +43,9 @@ namespace GameOfLife
 
             _grid = clonedGrid;
 
-            for (var y = 0; y < _grid.Count; y++)
+            for (var y = 0; y < _height; y++)
             {
-                for (var x = 0; x < _grid[y].Count; x++)
+                for (var x = 0; x < _width; x++)
                 {
                     _grid[y][x] = CellRules.GetNextCellGeneration(_grid[x][y], GetNeighbors(x, y));
                 }
@@ -57,11 +62,13 @@ namespace GameOfLife
                 {
                     if (row == 0 && col == 0) { continue; }
 
-                    try
-                    {
-                        neighbors.Add(_grid[y + row][x + col]);
-                    }
-                    catch (Exception) { }
+                    var neighborX = x + col;
+                    var neighborY = y + row;
+
+                    if (neighborX < 0 || neighborX >= _width) { continue; }
+                    if (neighborY < 0 || neighborY >= _height) { continue; }
+
+                    neighbors.Add(_grid[neighborY][neighborX]);
                 }
             }
 
