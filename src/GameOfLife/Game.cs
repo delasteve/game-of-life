@@ -58,15 +58,16 @@ namespace GameOfLife
 
             for (int row = -1; row < 2; row++)
             {
+                var neighborY = y + row;
+                if (neighborY < 0 || neighborY >= _height) { continue; }
+
                 for (int col = -1; col < 2; col++)
                 {
                     if (row == 0 && col == 0) { continue; }
 
                     var neighborX = x + col;
-                    var neighborY = y + row;
 
                     if (neighborX < 0 || neighborX >= _width) { continue; }
-                    if (neighborY < 0 || neighborY >= _height) { continue; }
 
                     neighbors.Add(grid[neighborY][neighborX]);
                 }
