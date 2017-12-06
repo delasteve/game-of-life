@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -37,21 +38,47 @@ namespace GameOfLife
 
             _grid = clonedGrid;
 
-            _grid[0][0] = CellRules.GetNextCellGeneration(_grid[0][0], new List<Cell>{
-                _grid[0][1], _grid[1][0], _grid[1][1]
-            });
+            for (var y = 0; y < _grid.Count; y++)
+            {
+                for (var x = 0; x < _grid[y].Count; x++)
+                {
+                    var neighbors = new List<Cell>();
 
-            _grid[0][1] = CellRules.GetNextCellGeneration(_grid[0][1], new List<Cell>{
-                _grid[0][0], _grid[1][0], _grid[1][1]
-            });
+                    try {
+                        neighbors.Add(_grid[y-1][x-1]);
+                    } catch (Exception) { }
 
-            _grid[1][0] = CellRules.GetNextCellGeneration(_grid[1][0], new List<Cell>{
-                _grid[0][1], _grid[0][0], _grid[1][1]
-            });
+                    try {
+                        neighbors.Add(_grid[y-1][x]);
+                    } catch (Exception) { }
 
-            _grid[1][1] = CellRules.GetNextCellGeneration(_grid[1][1], new List<Cell>{
-                _grid[0][1], _grid[1][0], _grid[0][0]
-            });
+                    try {
+                        neighbors.Add(_grid[y-1][x+1]);
+                    } catch (Exception) { }
+
+                    try {
+                        neighbors.Add(_grid[y][x-1]);
+                    } catch (Exception) { }
+
+                    try {
+                        neighbors.Add(_grid[y][x+1]);
+                    } catch (Exception) { }
+
+                    try {
+                        neighbors.Add(_grid[y+1][x-1]);
+                    } catch (Exception) { }
+
+                    try {
+                        neighbors.Add(_grid[y+1][x]);
+                    } catch (Exception) { }
+
+                    try {
+                        neighbors.Add(_grid[y+1][x+1]);
+                    } catch (Exception) { }
+
+                    _grid[y][x] = CellRules.GetNextCellGeneration(_grid[x][y], neighbors);
+                }
+            }
         }
 
         private List<List<Cell>> CreateShallowCopyOfGrid()
