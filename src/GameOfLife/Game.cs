@@ -36,6 +36,8 @@ namespace GameOfLife
             var clonedGrid = CreateShallowCopyOfGrid();
 
             _grid = clonedGrid;
+
+            _grid[0][0] = CellRules.GetNextCellGeneration(_grid[0][0], new List<Cell>());
         }
 
         private List<List<Cell>> CreateShallowCopyOfGrid()

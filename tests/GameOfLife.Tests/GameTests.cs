@@ -55,5 +55,20 @@ namespace GameOfLife.Tests
 
             oldGrid.Should().NotBeSameAs(game.Grid);
         }
+
+        [Fact]
+        public void SpawnNextGeneration_GivenAValidGameGrid_WillUpdateCellsAccordingToCellRules()
+        {
+            var game = new Game(1, 1);
+            var expectedGrid = new List<List<Cell>>
+            {
+                new List<Cell> { Cell.DEAD }
+            };
+            game.ToggleState(0, 0);
+
+            game.SpawnNextGeneration();
+
+            game.Grid.ShouldBeEquivalentTo(expectedGrid);
+        }
     }
 }
