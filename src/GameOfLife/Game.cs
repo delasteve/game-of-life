@@ -37,7 +37,21 @@ namespace GameOfLife
 
             _grid = clonedGrid;
 
-            _grid[0][0] = CellRules.GetNextCellGeneration(_grid[0][0], new List<Cell>());
+            _grid[0][0] = CellRules.GetNextCellGeneration(_grid[0][0], new List<Cell>{
+                _grid[0][1], _grid[1][0], _grid[1][1]
+            });
+
+            _grid[0][1] = CellRules.GetNextCellGeneration(_grid[0][1], new List<Cell>{
+                _grid[0][0], _grid[1][0], _grid[1][1]
+            });
+
+            _grid[1][0] = CellRules.GetNextCellGeneration(_grid[1][0], new List<Cell>{
+                _grid[0][1], _grid[0][0], _grid[1][1]
+            });
+
+            _grid[1][1] = CellRules.GetNextCellGeneration(_grid[1][1], new List<Cell>{
+                _grid[0][1], _grid[1][0], _grid[0][0]
+            });
         }
 
         private List<List<Cell>> CreateShallowCopyOfGrid()
