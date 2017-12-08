@@ -29,23 +29,6 @@ namespace GameOfLife.ConsoleApp.Tests.Util.Formatters
         }
 
         [Fact]
-        public void Format_GivenAGridWithTwoRowsAndDeadCells_WillReturnAMultilineString()
-        {
-            var expectedOutput = string.Join(
-                Environment.NewLine,
-                "·",
-                "·"
-            );
-            expectedOutput += Environment.NewLine;
-
-            var game = new Game(1, 2);
-
-            var output = ConsoleFormatter.Format(game);
-
-            output.Should().Be(expectedOutput);
-        }
-
-        [Fact]
         public void Format_GivenA2x2GridWithAliveAndDeadCells_ReturnsAStringThatAllowsForVariableWidthAndHeightGrids()
         {
             var expectedOutput = string.Join(
