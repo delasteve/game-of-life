@@ -15,5 +15,16 @@ namespace GameOfLife.ConsoleApp.Tests.Util.Formatters
 
             output.Should().Be("·");
         }
+
+        [Fact]
+        public void Format_GivenAGridWithASingleAliveCell_WillPrintACapitalX()
+        {
+            var game = new Game(1, 1);
+            game.ToggleState(0, 0);
+
+            var output = ConsoleFormatter.Format(game);
+
+            output.Should().Be("X");
+        }
     }
 }
