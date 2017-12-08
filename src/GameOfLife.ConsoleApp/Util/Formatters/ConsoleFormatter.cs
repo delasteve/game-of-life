@@ -12,11 +12,16 @@ namespace GameOfLife.ConsoleApp.Util.Formatters
 
             foreach (var row in game.Grid)
             {
-                if (row.ElementAt(0) == Cell.ALIVE)
+                foreach (var cell in row)
                 {
-                    stringBuilder.Append("X");
-                } else {
-                    stringBuilder.Append("·");
+                    if (cell == Cell.ALIVE)
+                    {
+                        stringBuilder.Append("X");
+                    }
+                    else
+                    {
+                        stringBuilder.Append("·");
+                    }
                 }
 
                 stringBuilder.Append(Environment.NewLine);

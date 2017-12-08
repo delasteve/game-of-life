@@ -44,5 +44,24 @@ namespace GameOfLife.ConsoleApp.Tests.Util.Formatters
 
             output.Should().Be(expectedOutput);
         }
+
+        [Fact]
+        public void Format_GivenA2x2GridWithAliveAndDeadCells_ReturnsAStringThatAllowsForVariableWidthAndHeightGrids()
+        {
+            var expectedOutput = string.Join(
+                Environment.NewLine,
+                "X·",
+                "·X"
+            );
+            expectedOutput += Environment.NewLine;
+
+            var game = new Game(2, 2);
+            game.ToggleState(0, 0);
+            game.ToggleState(1, 1);
+
+            var output = ConsoleFormatter.Format(game);
+
+            output.Should().Be(expectedOutput);
+        }
     }
 }
