@@ -1,3 +1,4 @@
+using System;
 using FluentAssertions;
 using GameOfLife.ConsoleApp.Util.Formatters;
 using Xunit;
@@ -13,7 +14,7 @@ namespace GameOfLife.ConsoleApp.Tests.Util.Formatters
 
             var output = ConsoleFormatter.Format(game);
 
-            output.Should().Be("·");
+            output.Should().Be($"·{Environment.NewLine}");
         }
 
         [Fact]
@@ -24,7 +25,24 @@ namespace GameOfLife.ConsoleApp.Tests.Util.Formatters
 
             var output = ConsoleFormatter.Format(game);
 
-            output.Should().Be("X");
+            output.Should().Be($"X{Environment.NewLine}");
+        }
+
+        [Fact]
+        public void Format_GivenAGridWithTwoRowsAndDeadCells_WillReturnAMultilineString()
+        {
+            var expectedOutput = string.Join(
+                Environment.NewLine,
+                "·",
+                "·"
+            );
+            expectedOutput += Environment.NewLine;
+
+            var game = new Game(1, 2);
+
+            var output = ConsoleFormatter.Format(game);
+
+            output.Should().Be(expectedOutput);
         }
     }
 }

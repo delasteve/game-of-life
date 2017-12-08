@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Text;
 
@@ -7,12 +8,21 @@ namespace GameOfLife.ConsoleApp.Util.Formatters
     {
         public static string Format(Game game)
         {
-            if (game.Grid.ElementAt(0).ElementAt(0) == Cell.ALIVE)
+            var stringBuilder = new StringBuilder();
+
+            foreach (var row in game.Grid)
             {
-                return "X";
+                if (row.ElementAt(0) == Cell.ALIVE)
+                {
+                    stringBuilder.Append("X");
+                } else {
+                    stringBuilder.Append("·");
+                }
+
+                stringBuilder.Append(Environment.NewLine);
             }
 
-            return "·";
+            return stringBuilder.ToString();
         }
     }
 }
