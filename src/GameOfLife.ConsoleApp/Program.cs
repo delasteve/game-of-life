@@ -1,5 +1,4 @@
 ﻿using System;
-using GameOfLife.ConsoleApp.Util;
 
 namespace GameOfLife.ConsoleApp
 {
@@ -7,7 +6,7 @@ namespace GameOfLife.ConsoleApp
     {
         public static void Main(string[] args)
         {
-            new App(new GameOfLifeConsole())
+            new App()
                 .Run();
         }
     }
